@@ -1,20 +1,51 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#container {
+    
+}
+
 .grid {
     height: 400px;
     width: 400px;
     display: flex;
     flex-wrap: wrap;
-    background-color: gray;
+    border: 4px solid #a9a9a9;
 }
 
 .grid div {
     height: 40px;
     width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.bomb {
-    background-color: orange;
+.notChecked, .flag {
+    background: linear-gradient(45deg, rgba(94,94,94,1) 50%, rgba(203,203,203,1) 50%);
+}
+
+.notChecked > div, .flag > div {
+    height: 30px;
+    width: 30px;
+    background-color: #a9a9a9;
 }
 
 .checked {
-    background-color: lightblue;
+    background-color: #464646;
+}
+
+.checked > div {
+    height: 36px;
+    width: 36px;
+    background-color: #a9a9a9;
+    color: black;
+}
+
+.bomb.checked > div {
+    background-color: #464646;
 }
