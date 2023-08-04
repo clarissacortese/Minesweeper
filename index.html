@@ -8,8 +8,20 @@
 </head>
 <body>
     <div id="container">
-        <div class="grid"></div>
+        <h1>MINESWEEPER</h1>
+        <div class="instructions">
+            <p>
+                The goal of the game is to click all the boxes except those containing bombs. <br/>
+                If you click on a box without a bomb, you will get numerical clues about the amount of bombs around the box. <br/>
+                By right-clicking you can place flags on the squares that you think might be hiding a bomb, right-click again and remove the flag.
+            </p>
+        </div>
+        <div class="bombAmount"><strong>Amount of bombs:20</strong></div>
+        <div class="flagCounter"><strong>Remaining flags:</strong><strong id="flagCounter"></strong></div>
+        <br/>
+        <div id="reload">Reload! 🔄</div>
     </div>
+    <div class="grid"></div>
     
     <script type="text/javascript" src="app.js"></script>
 </body>

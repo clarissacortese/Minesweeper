@@ -1,12 +1,40 @@
 body {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
     height: 100vh;
+    font-family: "Helvetica Neue",Helvetica,Arial;
 }
 
-#container {
-    
+@media (min-width: 900px) {
+    #container {
+        max-width:30%;
+    }
+
+    body {
+        padding-top: 10%;
+        font-size: 1.2em;
+    }
+}
+
+#reload {
+    height: 35px;
+    width: 150px;
+    padding-top: 4px;
+    background-color: #00A6ED;
+    border: 1px solid #00A6ED;
+    border-radius: 20px;
+    text-align: center;
+    text-weight: bold;
+    color: white;
+}
+
+#reload:hover {
+    cursor: pointer;
+}
+
+.flagCounter {
+    display: flex;
 }
 
 .grid {
@@ -44,8 +72,4 @@ body {
     width: 36px;
     background-color: #a9a9a9;
     color: black;
-}
-
-.bomb.checked > div {
-    background-color: #464646;
 }

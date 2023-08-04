@@ -6,6 +6,7 @@ let validAmount = width * width - bombAmount;
 let isGameOver = false;
 let flags = 0;
 
+
 // Ora creo la board.
 function createBoard(){
     const bombsArray = Array(bombAmount).fill("bomb");
@@ -33,6 +34,9 @@ function createBoard(){
             e.preventDefault();
             addFlag(square);
         };
+        document.getElementById("reload").addEventListener('click', function(e) {
+            reloadGame();
+        });
     }
 
     // Aggiungo i numeri che diano indizi sulle bombe presenti.
@@ -83,15 +87,19 @@ function addFlag(square) {
             square.classList.add("flag");
             document.getElementById("innerdDiv"+square.id).innerHTML = "🚩";
             flags ++;
+            document.getElementById("flagCounter").innerHTML = bombAmount - flags;
+            
         } else {
             square.classList.remove("flag");
-            square.innerHTML = "";
+            document.getElementById("innerdDiv"+square.id).innerHTML = "";
             flags --;
+            document.getElementById("flagCounter").innerHTML = bombAmount - flags;
         }
     } else if (!square.classList.contains("checked") && (flags === bombAmount) && square.classList.contains("flag")){
         square.classList.remove("flag");
         square.innerHTML = "";
         flags --;
+        document.getElementById("flagCounter").innerHTML = bombAmount - flags;
     } 
 }
 
@@ -101,10 +109,11 @@ function click(square){
     let currentId = square.id;
     if (isGameOver) return;
     if (square.classList.contains("checked") || square.classList.contains("flag")) return;
-    square.classList.remove("notChecked");
     if(square.classList.contains("bomb")){
+        square.classList.remove("notChecked");
         gameOver(square);
     } else {
+        square.classList.remove("notChecked");
         let total = square.getAttribute("data");
         if(total != 0){
             square.classList.add("checked");
@@ -118,8 +127,8 @@ function click(square){
 
 // Se la casella è vuota (non ha una bomba né un valore numerico), controllo le caselle vicine.
 function checkSquare(square, currentId) {
-    const isLeftEdge = (currentId % width === 0);
-    const isRightEdge = (currentId % width === width - 1);
+    const isLeftEdge = (parseInt(currentId) % width === 0);
+    const isRightEdge = (parseInt(currentId) % width === width - 1);
     setTimeout(() => {
         if(currentId > 0 && !isLeftEdge){
             const newId = squares[parseInt(currentId) - 1].id;
@@ -141,12 +150,12 @@ function checkSquare(square, currentId) {
             const newSquare = document.getElementById(newId);
             click(newSquare);
         }
-        if(currentId < 98 && !isRightEdge){
+        if(currentId < 99 && !isRightEdge){
             const newId = squares[parseInt(currentId) + 1].id;
             const newSquare = document.getElementById(newId);
             click(newSquare);
         }
-        if(currentId < 90 && !isRightEdge){
+        if(currentId < 90 && !isLeftEdge){
             const newId = squares[parseInt(currentId) - 1 + width].id;
             const newSquare = document.getElementById(newId);
             click(newSquare);}
@@ -155,8 +164,8 @@ function checkSquare(square, currentId) {
             const newSquare = document.getElementById(newId);
             click(newSquare);
         }
-        if(currentId < 89){
-            const newId = squares[parseInt(currentId - 1) + width].id;
+        if(currentId < 89) {
+            const newId = squares[parseInt(currentId) + width].id;
             const newSquare = document.getElementById(newId);
             click(newSquare);
         }
@@ -174,6 +183,8 @@ function gameOver(square) {
         }
 
     })
+
+    alert("You lost! Reload the page to play again.")
 }
 
 // Gestione della vittoria
@@ -184,9 +195,14 @@ function checkForWin() {
             matches ++;
             console.log(matches);
             if(matches === validAmount - 1) {
-                alert("you win!")
                 isGameOver = true;
+                alert("You win! Reload the page to play again.")
             }
         };
     }
+}
+
+// Refresh della pagina
+function reloadGame() {
+    location.reload();
 }
